@@ -1,0 +1,9 @@
+These are snippets and libraries from work projects that I was given permission
+to release as OSS.
+
+They aren't packaged as proper gems yet, but you can feel free to use them for 
+inspiration for your own implementations in your projects.
+
+I may later on package some of these as proper gems, especially if there seems
+to be interest. Feel free to create an Issue if you'd like that.
+

@@ -1,0 +1,3 @@
+We made a lot of different Excel exports using the caxlsx gem. Over time,
+it made sense to make a DSL for defining what worksheets, what columns, and what
+data transformations on data should happen.

@@ -1,0 +1,26 @@
+People have written a lot about the pros and cons of service objects, so I am
+not going to do that here.
+
+If you need service objects, it can be useful to have common base classes so
+you're not recreating boilerplate all over your codebase. These can both be 
+used as mixins.
+
+`BaseService` expects you to implement a constructor that takes any arguments your
+code needs and a method `_call!` that does not take arguments which does work.
+It's expected to return a value or raise an exception in the case of an error.
+
+All methods the module provides returns an OpenStruct of the following structure:
+  * success?: boolean. Did _call! throw an exception?
+  * results: return value of _call! if successful. not included on error
+  * errors: on error, includes exception.message in an array
+  * exception: on error, includes the exception object thrown
+
+The module provides the following methods for convenience:
+  * YourClass#call. Calls `_call!`, catches any exception as described
+  * YourClass#call!. Calls `_call!`, does not catch any exceptions
+  * YourClass.call(*args, **kwargs). Alias for YourClass.new(*args, **kwargs).call
+  * YourClass.call!(*args, **kwargs). Alias for YourClass.new(*args, **kwargs).call!
+
+`AtomicService` behaves the same except when `_call!` is executed it is wrapped in 
+an ActiveRecord transaction block.
+

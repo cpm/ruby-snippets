@@ -1,0 +1,20 @@
+In JSONAPI, the normal way to filter an index endpoint is to pass a parameter like:
+
+example.com/resources/?filter[foo]=a,b&filter[bar]=c,d
+
+With the meaning that you are filtering on attribute `foo` by `a` and `b` and
+attribute `bar` by `c` and `d`. The spec I don't believe is fussy about if those
+are AND or OR conditions.
+
+This is extracted from an application that had around 500+ JSONAPI controllers,
+and almost all of them implemented an index action.
+
+I found it nice if we had a `with_filter(:foo, &block)` method available to
+actions to DRY up this processing. 
+
+`WithFilterProcessor` does the parsing and handling of the arguments.
+
+`Filterable` is a concern I used to expose `with_filter` in controllers.
+
+`FilterProcessable` is a concern I used to expose `with_filter` in query objects
+which are tightly coupled to the controller.
